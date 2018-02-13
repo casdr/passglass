@@ -44,12 +44,13 @@ class AddUserCommand extends Command
         $yubikey = ($this->argument('yubikey')) ? $this->argument('yubikey') : $this->ask('Yubikey identity for user');
         $yubikey = substr($yubikey, 0, 12);
         $user = User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => $password,
-            'yubikey_identity' => $yubikey
+            'name'             => $name,
+            'email'            => $email,
+            'password'         => $password,
+            'yubikey_identity' => $yubikey,
         ]);
-        $this->info('User ' . $user->email . ' created');
+        $this->info('User '.$user->email.' created');
+
         return 0;
     }
 }

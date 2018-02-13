@@ -8,21 +8,27 @@ use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function getAdd(Company $company) {
+    public function getAdd(Company $company)
+    {
         return view('contacts.add', ['company' => $company]);
     }
-    public function postAdd(Request $request, Company $company) {
+
+    public function postAdd(Request $request, Company $company)
+    {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
         ]);
         $contact = $company->contacts()->create($request->all());
+
         return redirect()->route('companies.view', ['company' => $company->id])
-            ->with('msg', 'Contact ' . $contact->name . ' has been created');
+            ->with('msg', 'Contact '.$contact->name.' has been created');
     }
+
     public function getDelete(CompanyContact $contact)
     {
         $contact->delete();
+
         return redirect()->route('companies.view', ['company' => $contact->company->id])
-            ->with('msg', 'Contact ' . $contact->name . ' has been removed');
+            ->with('msg', 'Contact '.$contact->name.' has been removed');
     }
 }

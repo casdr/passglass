@@ -5,7 +5,6 @@ namespace App\Models;
 use App\Mail\PasswordUpdatedMail;
 use App\Mail\PasswordViewedMail;
 use Illuminate\Database\Eloquent\Model;
-use Auth;
 
 class Password extends Model
 {
@@ -30,13 +29,14 @@ class Password extends Model
         $this->sealed = 0;
         $this->save();
         $this->logEntries()->create([
-            'description' => 'decrypted the password'
+            'description' => 'decrypted the password',
         ]);
         $ip = \Request::ip();
         foreach (User::all() as $user) {
             \Mail::to($user)
                 ->queue(new PasswordViewedMail($this, \Auth::user(), $user, $ip));
         }
+
         return decrypt($value);
     }
 
@@ -44,7 +44,7 @@ class Password extends Model
     {
         if (!empty($this->id)) {
             $this->logEntries()->create([
-                'description' => 'updated the password'
+                'description' => 'updated the password',
             ]);
             $ip = \Request::ip();
             foreach (User::all() as $user) {

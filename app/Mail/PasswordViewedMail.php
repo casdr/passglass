@@ -5,13 +5,15 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class PasswordViewedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $password, $viewer, $user, $ip;
+    private $password;
+    private $viewer;
+    private $user;
+    private $ip;
 
     /**
      * Create a new message instance.
@@ -34,12 +36,12 @@ class PasswordViewedMail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Password ' . $this->password->company->name . ' - ' . $this->password->name . ' used!')
+            ->subject('Password '.$this->password->company->name.' - '.$this->password->name.' used!')
             ->view('mail.password_viewed', [
                 'password' => $this->password,
-                'viewer' => $this->viewer,
-                'user' => $this->user,
-                'ip' => $this->ip
+                'viewer'   => $this->viewer,
+                'user'     => $this->user,
+                'ip'       => $this->ip,
             ]);
     }
 }

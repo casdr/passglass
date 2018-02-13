@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Password;
 use App\Models\Company;
+use App\Models\Password;
 use Illuminate\Http\Request;
 
 class PasswordController extends Controller
@@ -11,8 +11,9 @@ class PasswordController extends Controller
     public function getView(Password $password)
     {
         $password->logEntries()->create([
-            'description' => 'viewed the password'
+            'description' => 'viewed the password',
         ]);
+
         return view('passwords.view', ['password' => $password]);
     }
 
@@ -24,39 +25,44 @@ class PasswordController extends Controller
     public function postAdd(Request $request, Company $company)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name'     => 'required',
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         $password = Password::create(array_merge(
             $request->only(['name', 'username', 'password']),
             ['company_id' => $company->id]
         ));
         $password->logEntries()->create([
-            'description' => 'created the password'
+            'description' => 'created the password',
         ]);
+
         return redirect()
             ->route('passwords.view', ['password' => $password])
-            ->with('message', 'The password ' . $password->title . ' has been added');
+            ->with('message', 'The password '.$password->title.' has been added');
     }
 
-    public function getDecrypt(Password $password) {
+    public function getDecrypt(Password $password)
+    {
         return $password->password;
     }
 
-    public function getUpdate(Password $password) {
+    public function getUpdate(Password $password)
+    {
         return view('passwords.update', ['password' => $password]);
     }
 
-    public function postUpdate(Request $request, Password $password) {
+    public function postUpdate(Request $request, Password $password)
+    {
         $this->validate($request, [
-            'name' => 'required',
+            'name'     => 'required',
             'username' => 'required',
-            'password' => 'required'
+            'password' => 'required',
         ]);
         $password->update($request->only('name', 'username', 'password'));
+
         return redirect()
             ->route('passwords.view', ['password' => $password])
-            ->with('message', 'The password ' . $password->title . ' has been updated');
+            ->with('message', 'The password '.$password->title.' has been updated');
     }
 }

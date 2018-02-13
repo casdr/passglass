@@ -12,7 +12,8 @@ class CompanyContact extends Model
     protected $fillable = ['company_id', 'name', 'email', 'phone'];
     protected $table = 'companies_contacts';
 
-    public function company() {
+    public function company()
+    {
         return $this->belongsTo('App\Models\Company');
     }
 }

@@ -39,11 +39,13 @@ class DeleteUserCommand extends Command
     public function handle()
     {
         $email = ($this->argument('email')) ? $this->argument('email') : $this->ask('Email of user');
-        if(!User::where('email', $email)->delete()) {
-            $this->error('No user with email ' . $email);
+        if (!User::where('email', $email)->delete()) {
+            $this->error('No user with email '.$email);
+
             return 1;
         }
-        $this->info('User with email ' . $email . ' deleted');
+        $this->info('User with email '.$email.' deleted');
+
         return 0;
     }
 }

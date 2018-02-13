@@ -2,20 +2,20 @@
 
 // https://upgrade.yubico.com/getapikey/
 
-return array(
+return [
 
-	'CLIENT_ID' => '33633',
+    'CLIENT_ID' => '33633',
 
-	'SECRET_KEY' => 'x8BCW3jqHkW9wmOmSU1cYRkCf78=',
+    'SECRET_KEY' => 'x8BCW3jqHkW9wmOmSU1cYRkCf78=',
 
-	'URL_LIST' => array(
+    'URL_LIST' => [
         'api.yubico.com/wsapi/2.0/verify',
         'api2.yubico.com/wsapi/2.0/verify',
         'api3.yubico.com/wsapi/2.0/verify',
         'api4.yubico.com/wsapi/2.0/verify',
         'api5.yubico.com/wsapi/2.0/verify',
-    ),
+    ],
 
-	'USER_AGENT' => 'Passglass',
+    'USER_AGENT' => 'Passglass',
 
-);
+];

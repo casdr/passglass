@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'yubikey_identity'
+        'name', 'email', 'password', 'yubikey_identity',
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'yubikey_identity'
+        'password', 'yubikey_identity',
     ];
 
     /**
@@ -48,7 +48,6 @@ class User extends Authenticatable
      */
     public function getRememberTokenName()
     {
-        return null;
     }
 
     /**

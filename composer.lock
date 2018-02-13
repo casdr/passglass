@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d088b124786026d9e7cffb1ec001649e",
+    "content-hash": "1f7fed3b8a35a3d323127c97966fbe4a",
     "packages": [
         {
             "name": "bitbeans/yubikey",
@@ -54,7 +54,7 @@
                 "laravel5",
                 "yubikey"
             ],
-            "time": "2016-04-01 08:08:28"
+            "time": "2016-04-01T08:08:28+00:00"
         },
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -284,6 +284,41 @@
                 }
             ],
             "time": "2015-04-20T18:58:01+00:00"
+        },
+        {
+            "name": "jasonhinkle/php-gpg",
+            "version": "1.6.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasonhinkle/php-gpg.git",
+                "reference": "fa0ed216ee4b94e625d2262bbfe00ecf30e9c536"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasonhinkle/php-gpg/zipball/fa0ed216ee4b94e625d2262bbfe00ecf30e9c536",
+                "reference": "fa0ed216ee4b94e625d2262bbfe00ecf30e9c536",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "libs/GPG.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL"
+            ],
+            "authors": [
+                {
+                    "name": "Jason Hinkle"
+                }
+            ],
+            "description": "GPG / PGP port written in pure PHP with no binary dependencies",
+            "keywords": [
+                "gpg"
+            ],
+            "time": "2015-12-24T19:44:18+00:00"
         },
         {
             "name": "laravel/framework",

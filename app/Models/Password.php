@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
+use App\Mail\PasswordUpdatedMail;
 use App\Mail\PasswordViewedMail;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Password extends Model
 {
@@ -11,19 +13,46 @@ class Password extends Model
 
     protected $hidden = ['password'];
 
-    public function company() {
+    protected $fillable = ['company_id', 'name', 'username', 'password'];
+
+    public function company()
+    {
         return $this->belongsTo('App\Models\Company');
     }
 
-    public function getPasswordAttribute($value) {
-        foreach(User::all() as $user) {
+    public function logEntries()
+    {
+        return $this->hasMany('App\Models\LogEntry');
+    }
+
+    public function getPasswordAttribute($value)
+    {
+        $this->sealed = 0;
+        $this->save();
+        $this->logEntries()->create([
+            'description' => 'decrypted the password'
+        ]);
+        $ip = \Request::ip();
+        foreach (User::all() as $user) {
             \Mail::to($user)
-                ->queue(new PasswordViewedMail($this, \Auth::user(), $user));
+                ->queue(new PasswordViewedMail($this, \Auth::user(), $user, $ip));
         }
         return decrypt($value);
     }
 
-    public function setPasswordAttribute($value) {
+    public function setPasswordAttribute($value)
+    {
+        if (!empty($this->id)) {
+            $this->logEntries()->create([
+                'description' => 'updated the password'
+            ]);
+            $ip = \Request::ip();
+            foreach (User::all() as $user) {
+                \Mail::to($user)
+                    ->queue(new PasswordUpdatedMail($this, \Auth::user(), $user, $ip));
+            }
+        }
         $this->attributes['password'] = encrypt($value);
+        $this->attributes['sealed'] = 1;
     }
 }

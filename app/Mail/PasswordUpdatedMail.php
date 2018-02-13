@@ -7,7 +7,7 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class PasswordViewedMail extends Mailable
+class PasswordUpdatedMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -34,8 +34,8 @@ class PasswordViewedMail extends Mailable
     public function build()
     {
         return $this
-            ->subject('Password ' . $this->password->company->name . ' - ' . $this->password->name . ' used!')
-            ->view('mail.password_viewed', [
+            ->subject('Password ' . $this->password->company->name . ' - ' . $this->password->name . ' updated!')
+            ->view('mail.password_updated', [
                 'password' => $this->password,
                 'viewer' => $this->viewer,
                 'user' => $this->user,

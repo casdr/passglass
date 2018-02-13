@@ -10,6 +10,12 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
+    <script>
+        var SESSION_LIFETIME = {{ config('session.lifetime') * 60 }};
+        var SESSION_END = {{ time() + config('session.lifetime') * 60 + 10 }};
+        var LOGGED_IN = {{ (Auth::guest()) ? 'false' : 'true' }};
+    </script>
+
     <!-- Styles -->
     <link href="{{ asset('css/deps.css') }}" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -102,6 +108,7 @@
                 <small>
                     Built for <a href="http://aalderingict.nl">Aaldering ICT</a>
                     by <a href="http://cas.reuver.co">Cas de Reuver</a>
+                    <span class="pull-right">Session lifetime: <span id="session-lifetime"></span></span>
                 </small>
             </div>
         </div>

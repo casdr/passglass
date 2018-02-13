@@ -34,19 +34,21 @@
             </table>
         </div>
         <div id="passwords" class="tab-pane fade">
-            <h4>Passwords</h4>
+            <h4>Passwords <small><a href="{{ route('passwords.add', ['company' => $company]) }}"><i class="fa fa-plus"></i> Add password</a></small></h4>
             <table class="table" id="passwordsTable">
                 <thead>
                 <tr>
                     <th>Name</th>
                     <th>Username</th>
+                    <th>Status</th>
                 </tr>
                 </thead>
                 <tbody>
                 @foreach($company->passwords()->orderBy('name', 'ASC')->get() as $password)
-                    <tr class="pointer" id="password-{{ $password->id }}" name="{{ $password->name }}">
+                    <tr class="pointer{{ ($password->sealed) ? ' ' : ' danger' }}" id="password-{{ $password->id }}" name="{{ $password->name }}">
                         <td>{{ $password->name }}</td>
                         <td>{{ $password->username }}</td>
+                        <td>{{ ($password->sealed) ? 'Sealed' : 'Unsealed' }}</td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -68,10 +70,7 @@
             $('#passwordsTable').on('click', 'tr', function () {
                 var id = $(this).attr('id').replace('password-', '');
                 var name = $(this).attr('name');
-
-                if(confirm("Are you sure you want to view the password for " + name + "?")) {
-                    window.location.href = '{{ route('passwords.view', ['password' => ':id']) }}'.replace(':id', id);
-                }
+                window.location.href = '{{ route('passwords.view', ['password' => ':id']) }}'.replace(':id', id);
             });
         });
     </script>

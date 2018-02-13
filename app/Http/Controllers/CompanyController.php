@@ -7,21 +7,34 @@ use Illuminate\Http\Request;
 
 class CompanyController extends Controller
 {
-    public function getIndex() {
+    public function getRedirect() {
+        return redirect()->intended('/companies');
+    }
+
+    public function getIndex()
+    {
         $companies = Company::all();
         return view('companies.index', ['companies' => $companies]);
     }
-    public function getView(Company $company) {
+
+    public function getView(Company $company)
+    {
         return view('companies.view', ['company' => $company]);
     }
-    public function getAdd() {
+
+    public function getAdd()
+    {
         return view('companies.add');
     }
-    public function postAdd(Request $request) {
+
+    public function postAdd(Request $request)
+    {
         $this->validate($request, [
-           'name' => 'required'
+            'name' => 'required'
         ]);
         $company = Company::create($request->all());
-        return redirect()->route('companies.view', ['company' => $company]);
+        return redirect()
+            ->route('companies.view', ['company' => $company])
+            ->with('message', 'The company ' . $company->name . ' has been added');
     }
 }

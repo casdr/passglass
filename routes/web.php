@@ -11,11 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect('/companies');
-});
+Route::get('/', 'CompanyController@getRedirect');
+Route::get('profile', 'ProfileController@getUpdate')->name('profile.update');
+Route::post('profile', 'ProfileController@postUpdate');
 
-Auth::routes();
+Route::get('login', 'Auth\LoginController@showLoginForm')->name('login');
+Route::post('login', 'Auth\LoginController@login');
+Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::group(['prefix' => 'companies', 'middleware' => 'auth', 'as' => 'companies.'], function () {
     Route::get('/', 'CompanyController@getIndex')->name('index');
@@ -32,6 +34,11 @@ Route::group(['prefix' => 'contacts', 'middleware' => 'auth', 'as' => 'contacts.
 });
 
 Route::group(['prefix' => 'passwords', 'middleware' => 'auth', 'as' => 'passwords.'], function () {
+    Route::get('add/{company}', 'PasswordController@getAdd')->name('add');
+    Route::post('add/{company}', 'PasswordController@postAdd')->name('add');
     Route::get('{password}', 'PasswordController@getView')->name('view');
+    Route::get('{password}/decrypt', 'PasswordController@getDecrypt')->name('decrypt');
+    Route::get('{password}/update', 'PasswordController@getUpdate')->name('update');
+    Route::post('{password}/update', 'PasswordController@postUpdate')->name('update');
 });
 

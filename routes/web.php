@@ -42,3 +42,6 @@ Route::group(['prefix' => 'passwords', 'middleware' => 'auth', 'as' => 'password
     Route::post('{password}/update', 'PasswordController@postUpdate')->name('update');
 });
 
+Route::group(['prefix' => 'monitoring', 'as' => 'monitoring.'], function () {
+    Route::get('nagios', 'MonitoringController@getNagios')->name('nagios');
+});

@@ -25,7 +25,7 @@ class PasswordController extends Controller
     public function postAdd(Request $request, Company $company)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name'     => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -39,7 +39,7 @@ class PasswordController extends Controller
 
         return redirect()
             ->route('passwords.view', ['password' => $password])
-            ->with('message', 'The password ' . $password->title . ' has been added');
+            ->with('message', 'The password '.$password->title.' has been added');
     }
 
     public function getDecrypt(Password $password)
@@ -55,7 +55,7 @@ class PasswordController extends Controller
     public function postUpdate(Request $request, Password $password)
     {
         $this->validate($request, [
-            'name' => 'required',
+            'name'     => 'required',
             'username' => 'required',
             'password' => 'required',
         ]);
@@ -63,6 +63,6 @@ class PasswordController extends Controller
 
         return redirect()
             ->route('passwords.view', ['password' => $password])
-            ->with('message', 'The password ' . $password->title . ' has been updated');
+            ->with('message', 'The password '.$password->title.' has been updated');
     }
 }

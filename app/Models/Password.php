@@ -15,7 +15,7 @@ class Password extends Model
     protected $fillable = ['company_id', 'name', 'username', 'password'];
 
     protected $casts = [
-        'keys' => 'array'
+        'keys' => 'array',
     ];
 
     public function company()
@@ -28,16 +28,18 @@ class Password extends Model
         return $this->hasMany('App\Models\LogEntry');
     }
 
-    public function keyList() {
+    public function keyList()
+    {
         $keys = [];
-        foreach($this->keys as $key) {
+        foreach ($this->keys as $key) {
             $user = User::where('gpg_key', $key)->first();
-            if($user) {
+            if ($user) {
                 $keys[$key] = $user;
             } else {
                 $keys[$key] = null;
             }
         }
+
         return $keys;
     }
 
@@ -79,14 +81,19 @@ class Password extends Model
         $tmp = stream_get_meta_data($tmpfile)['uri'];
         file_put_contents($tmp, decrypt($password->attributes['password']));
         $result = shell_exec("gpg --list-only -v -d $tmp 2>&1 1> /dev/null");
-        preg_match_all("/.*public key is ([A-Z0-9]+).*/", $result, $out, PREG_PATTERN_ORDER);
+        preg_match_all('/.*public key is ([A-Z0-9]+).*/', $result, $out, PREG_PATTERN_ORDER);
         $password->keys = $out[1];
     }
 
-    public static function boot() {
+    public static function boot()
+    {
         parent::boot();
 
-        self::updating(function ($password) { self::store($password); });
-        self::saving(function ($password) { self::store($password); });
+        self::updating(function ($password) {
+            self::store($password);
+        });
+        self::saving(function ($password) {
+            self::store($password);
+        });
     }
 }

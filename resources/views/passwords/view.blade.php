@@ -12,7 +12,7 @@
             <p><b>NOTE:</b> The status of this password is unsealed. Please update as soon as possible.</p>
         </div>
     @endif
-    <table class="table">
+    <table class="table table-responsive">
         <tbody>
         <tr>
             <td><b>Username:</b></td>
@@ -20,6 +20,8 @@
         </tr>
         </tbody>
     </table>
+
+    <h3>Content</h3>
     <div id="password-block" class="alert alert-warning">
         <p><a href="javascript:void(0);" id="password-click">Click here</a> if you want to view the password.
         </p>
@@ -32,8 +34,26 @@
         <pre id="password-content">Loading...</pre>
     </div>
 
+    <h3>Keys and users</h3>
+    <table class="table table-responsive">
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>User</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach($password->keyList() as $key=>$user)
+        <tr>
+            <td>{{ $key }}</td>
+            <td>{{ $user ? $user->name . ' (' . $user->email . ')' : 'Unknown' }}</td>
+        </tr>
+        @endforeach
+        </tbody>
+    </table>
+
     <h3>Log entries</h3>
-    <table class="table table-striped">
+    <table class="table table-striped" id="log-entries">
         <thead>
         <tr>
             <th>Date</th>
@@ -57,6 +77,10 @@
 @section('scripts')
     <script>
         $(document).ready(function () {
+            var dta = $('#log-entries').DataTable({
+                order: [[0, 'desc']]
+            });
+
             $('#password-click').click(function () {
                 $('#password-block').hide();
                 $('#password-view').show();

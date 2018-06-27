@@ -42,12 +42,14 @@ class AddUserCommand extends Command
         $name = ($this->argument('name')) ? $this->argument('name') : $this->ask('Name for user');
         $password = ($this->argument('hash')) ? $this->argument('hash') : bcrypt($this->secret('Password for user'));
         $yubikey = ($this->argument('yubikey')) ? $this->argument('yubikey') : $this->ask('Yubikey identity for user');
+        $gpg_key = ($this->argument('gpg')) ? $this->argument('gpg') : $this->ask('GPG identifier for user');
         $yubikey = substr($yubikey, 0, 12);
         $user = User::create([
             'name'             => $name,
             'email'            => $email,
             'password'         => $password,
             'yubikey_identity' => $yubikey,
+            'gpg_key'          => $gpg_key,
         ]);
         $this->info('User '.$user->email.' created');
 

@@ -83,6 +83,7 @@ class Password extends Model
         $result = shell_exec("gpg --list-only -v -d $tmp 2>&1 1> /dev/null");
         preg_match_all('/.*public key is ([A-Z0-9]+).*/', $result, $out, PREG_PATTERN_ORDER);
         $password->keys = $out[1];
+        unlink($tmp);
     }
 
     public static function boot()

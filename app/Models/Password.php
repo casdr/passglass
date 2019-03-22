@@ -31,14 +31,14 @@ class Password extends Model
     public function keyList()
     {
         $keys = [];
-        foreach ($this->keys as $key) {
-            $user = User::where('gpg_key', $key)->first();
-            if ($user) {
-                $keys[$key] = $user;
-            } else {
-                $keys[$key] = null;
-            }
-        }
+//        foreach ($this->keys as $key) {
+//            $user = User::where('gpg_key', $key)->first();
+//            if ($user) {
+//                $keys[$key] = $user;
+//            } else {
+//                $keys[$key] = null;
+//            }
+//        }
 
         return $keys;
     }

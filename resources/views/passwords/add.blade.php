@@ -22,11 +22,20 @@
         </div>
         <div class="form-group">
             <label for="password" class="col-sm-2 control-label">Password content</label>
+            <div class="col-sm-9">
+                <input class="form-control" id="password" type="password" placeholder="Password">
+            </div>
+            <div class="col-sm-1">
+                <a class="btn btn-primary pull-right" id="encrypt"><i class="fa fa-lock"></i> Encrypt</a>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="encrypted" class="col-sm-2 control-label">Encrypted</label>
             <div class="col-sm-10">
-                <textarea name="password" class="form-control" id="password" required="required"
+                <textarea name="password" class="form-control" id="encrypted"
                           placeholder="-----BEGIN PGP MESSAGE-----
 ...
------END PGP MESSAGE-----" rows="10">{{ old('password') }}</textarea>
+-----END PGP MESSAGE-----" rows="10" readonly="readonly" required="required"></textarea>
             </div>
         </div>
         <div class="form-group">

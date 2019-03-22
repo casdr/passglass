@@ -14,6 +14,7 @@
         var SESSION_LIFETIME = {{ config('session.lifetime') * 60 }};
         var SESSION_END = {{ time() + config('session.lifetime') * 60 + 10 }};
         var LOGGED_IN = {{ (Auth::guest()) ? 'false' : 'true' }};
+        var BASE_URL = "{{ url('/') }}";
     </script>
 
     <!-- Styles -->
@@ -117,6 +118,7 @@
 </div>
 
 <!-- Scripts -->
+
 <script src="{{ asset('js/app.js') }}"></script>
 @yield('scripts')
 </body>

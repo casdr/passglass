@@ -1,6 +1,25 @@
+require('./bootstrap')
+require('datatables.net-bs')
 
-require('./bootstrap');
-require('datatables.net-bs');
+import 'babel-polyfill'
+
+
+const openpgp = require('openpgp')
+const bent = require('bent')
+const getJSON = bent('json')
+
+openpgp.initWorker({path: BASE_URL + '/js/openpgp.worker.min.js'});
+
+const encryptPassword = async (password) => {
+    const keys = await getJSON(BASE_URL + '/passwords/keys')
+    const options = {
+        message: openpgp.message.fromText(password),
+        publicKeys: (await openpgp.key.readArmored(keys.keys)).keys
+    }
+    await openpgp.encrypt(options).then(ciphertext => {
+        $('#encrypted').val(ciphertext.data);
+    })
+}
 
 $(document).ready(function () {
     setInterval(function () {
@@ -17,4 +36,13 @@ $(document).ready(function () {
             $('#session-lifetime').text(SESSION_END - current + ' seconds');
         }
     }, 1000);
+
+    var submitted = false;
+    var oldPassword = "";
+
+    $('#encrypt').click(function (event) {
+        var password = $('#password').val();
+
+        encryptPassword(password)
+    });
 });

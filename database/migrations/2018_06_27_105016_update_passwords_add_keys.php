@@ -14,7 +14,7 @@ class UpdatePasswordsAddKeys extends Migration
     public function up()
     {
         Schema::table('passwords', function (Blueprint $table) {
-            $table->json('keys')->nullable();
+            $table->string('keys')->nullable();
         });
     }
 

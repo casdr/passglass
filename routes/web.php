@@ -36,6 +36,7 @@ Route::group(['prefix' => 'contacts', 'middleware' => 'auth', 'as' => 'contacts.
 Route::group(['prefix' => 'passwords', 'middleware' => 'auth', 'as' => 'passwords.'], function () {
     Route::get('add/{company}', 'PasswordController@getAdd')->name('add');
     Route::post('add/{company}', 'PasswordController@postAdd')->name('add');
+    Route::get('keys', 'PasswordController@getKeys')->name('keys');
     Route::get('{password}', 'PasswordController@getView')->name('view');
     Route::get('{password}/decrypt', 'PasswordController@getDecrypt')->name('decrypt');
     Route::get('{password}/update', 'PasswordController@getUpdate')->name('update');

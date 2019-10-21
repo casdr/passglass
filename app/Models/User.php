@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'yubikey_identity', 'gpg_key',
+        'name', 'email', 'password', 'key_id',
     ];
 
     /**
@@ -26,7 +26,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'yubikey_identity',
+        'password', 'key',
     ];
 
     /**
@@ -58,5 +58,9 @@ class User extends Authenticatable
         if ($key != $this->getRememberTokenName()) {
             parent::setAttribute($key, $value);
         }
+    }
+
+    public function key() {
+        return $this->belongsTo('App\Models\Key');
     }
 }

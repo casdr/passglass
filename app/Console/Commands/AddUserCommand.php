@@ -12,7 +12,7 @@ class AddUserCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'user:add {email?} {name?} {hash?} {yubikey?} {gpg?}';
+    protected $signature = 'user:add {email?} {name?} {hash?} {key?}';
 
     /**
      * The console command description.
@@ -41,13 +41,12 @@ class AddUserCommand extends Command
         $email = ($this->argument('email')) ? $this->argument('email') : $this->ask('Email for user');
         $name = ($this->argument('name')) ? $this->argument('name') : $this->ask('Name for user');
         $password = ($this->argument('hash')) ? $this->argument('hash') : bcrypt($this->secret('Password for user'));
-        $yubikey = ($this->argument('yubikey')) ? $this->argument('yubikey') : $this->ask('Yubikey identity for user');
-        $yubikey = substr($yubikey, 0, 12);
+        $key_id = ($this->argument('key')) ? $this->argument('key') : $this->ask('Key ID for user');
         $user = User::create([
             'name'             => $name,
             'email'            => $email,
             'password'         => $password,
-            'yubikey_identity' => $yubikey,
+            'key_id'           => $key_id,
         ]);
         $this->info('User '.$user->email.' created');
 

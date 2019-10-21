@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\Key;
 use App\Models\Password;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -49,10 +50,10 @@ class PasswordController extends Controller
     }
 
     public function getKeys() {
-        $users = User::all();
+        $fetchKeys = Key::all();
         $keys = [];
-        foreach ($users as $user) {
-            $keys[] = $user->gpg_public;
+        foreach ($fetchKeys as $key) {
+            $keys[] = $key->gpg_public;
         }
         return [
             'keys' => implode("\n", $keys)

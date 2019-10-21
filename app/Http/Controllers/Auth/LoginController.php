@@ -30,7 +30,7 @@ class LoginController extends Controller
             $yk->verify($request->input('yubikey'));
             $identity = $yk->getParameter('identity');
             /* @noinspection PhpUndefinedFieldInspection */
-            if ($identity != $this->guard()->user()->yubikey_identity) {
+            if ($identity != $this->guard()->user()->key->yubikey) {
                 throw new Exception('Incorrect identity');
             }
         } catch (\Exception $e) {

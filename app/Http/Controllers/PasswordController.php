@@ -50,7 +50,7 @@ class PasswordController extends Controller
     }
 
     public function getKeys() {
-        $fetchKeys = Key::all();
+        $fetchKeys = Key::where('should_encrypt', true);
         $keys = [];
         foreach ($fetchKeys as $key) {
             $keys[] = $key->gpg_public;

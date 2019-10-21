@@ -34,24 +34,6 @@
         <pre id="password-content">Loading...</pre>
     </div>
 
-    <h3>Keys and users</h3>
-    <table class="table table-responsive">
-        <thead>
-        <tr>
-            <th>Key</th>
-            <th>User</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($password->keyList() as $key=>$user)
-        <tr>
-            <td>{{ $key }}</td>
-            <td>{{ $user ? $user->name . ' (' . $user->email . ')' : 'Unknown' }}</td>
-        </tr>
-        @endforeach
-        </tbody>
-    </table>
-
     <h3>Log entries</h3>
     <table class="table table-striped" id="log-entries">
         <thead>

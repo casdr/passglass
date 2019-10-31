@@ -5,4 +5,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Key extends Model {
     protected $table = 'keys';
+
+    protected $fillable = ['description', 'gpg_public', 'yubikey', 'should_encrypt'];
 }
